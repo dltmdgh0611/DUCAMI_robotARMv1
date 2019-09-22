@@ -41,49 +41,24 @@ void loop() {
       i=0;
       }
   }
-    
-    
-
-//    sum_angle = read_angle/180*460;
-//    Serial.println(read_angle);
-
-    
   
+//   cur_millis = millis(); //가변
+//   if(cur_millis-per_millis>10){
+//     per_millis=cur_millis;
+//     if(dir==0){
+//      ocr_arr[0]--;
+//     }
+//     else if(dir==1){
+//       ocr_arr[0]++;
+//     }
+//     if(ocr_arr[0]>SERVOTOP-50){
+//       dir=0;
+//     }
+//     else if(ocr_arr[0]<SERVOMID){
+//       dir=1;
+//     }
+//   }
 
-  
-  cur_millis = millis();
-  if(cur_millis-per_millis>10){
-    per_millis=cur_millis;
-    if(dir==0){
-     ocr_arr[0]--;
-    }
-    else if(dir==1){
-      ocr_arr[0]++;
-    }
-    if(ocr_arr[0]>SERVOTOP-50){
-      dir=0;
-    }
-    else if(ocr_arr[0]<SERVOMID){
-      dir=1;
-    }
-  }
-
-  if(cur_millis-per_millis2>5){
-    per_millis2=cur_millis;
-    if(dir2==0){
-     ocr_arr[1]--;
-    }
-    else if(dir2==1){
-      ocr_arr[1]++;
-    }
-    if(OCR1A>SERVOMID+40){
-      dir2=0;
-    }
-    else if(OCR1A<SERVOBOT+50){
-      dir2=1;
-    }
-  }
-}
 
 SIGNAL(TIMER1_OVF_vect){ //2.5ms (* 8 servos)
   TCNT1 = 399;
