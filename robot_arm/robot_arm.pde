@@ -1,7 +1,7 @@
 float segLength = 80;
 float x, y, x2, y2, mX, mY;
 int count = 0;
-int an1,an2;
+int an1,an2,an3=10,an4=10;
 import processing.serial.*;
 Serial port;
 void setup() {
@@ -147,15 +147,24 @@ void draw() {
    segment(x, y, angle1); 
     //delay(1000);
    segment(x2, y2, angle2); 
-   an1 = (int)(180+angle1*(180/PI))-270;
+   line(0,180,640,180);
    an2 = (int)(180+angle2*(180/PI));
+   an1 = abs((int)(180+angle1*(180/PI))-270);
+   if(an1>90) an1=abs(360-an1);
+   an1=an1+(90-an2);
    println("angle1:" +an1);
    println();
    println("angle2:" +an2);
    println();
+   println("angle3:" +an3);
+   println();
+   println("angle4:" +an4);
+   println();
    port.write(0x01);
    port.write(an1);
    port.write(an2);
+   port.write(an3);
+   port.write(an4);
    port.write(0xff);
    delay(10);
 
