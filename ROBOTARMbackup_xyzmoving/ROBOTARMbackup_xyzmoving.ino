@@ -25,7 +25,7 @@ int serialcount;
 bool x_flag, y_flag;
 bool movetrigger = false;
 
-int pos3d[3]= {200,100,100};
+int pos3d[3];
 int count;
 
 
@@ -52,28 +52,17 @@ void setup() {
 void loop() {
   cur_millis = millis();
   if(Serial.available()){
-//    movetrigger = false;
-//    pos3d[serialcount] = Serial.parseInt();
-//    serialcount++;
-//    if(serialcount == 3){
-//      Serial.println(pos3d[0]);
-//      Serial.println(pos3d[1]);
-//      Serial.println(pos3d[2]);
-//      serialcount = 0;
-//      movetrigger = true;
-//      
-//    }
-    movetrigger=false;
-    switch(Serial.read())
-    {
-      case 'a' : pos3d[0]+=2; movetrigger = true; break;
-      case 'd' : pos3d[0]-=2; movetrigger = true;break;
-      case 'w' : pos3d[1]+=2; movetrigger = true;break;
-      case 's' : pos3d[1]-=2; movetrigger = true;break;
-      case 'c' : pos3d[2]+=2; movetrigger = true;break;
-      case 'v' : pos3d[2]-=2; movetrigger = true;break;
+    movetrigger = false;
+    pos3d[serialcount] = Serial.parseInt();
+    serialcount++;
+    if(serialcount == 3){
+      Serial.println(pos3d[0]);
+      Serial.println(pos3d[1]);
+      Serial.println(pos3d[2]);
+      serialcount = 0;
+      movetrigger = true;
+      
     }
-   
   }
 
 
