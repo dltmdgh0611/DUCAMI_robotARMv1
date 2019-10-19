@@ -11,10 +11,10 @@ unsigned long per_millis,cur_millis;
 int i,j;
 float segLength1 = 150;
 float segLength2 = 100;
-float x, y, z, x2, y2, z2;
+float x, y, z, x2, y2, z2, dx2;
 float nemoX, nemoY;
 float an1, an2, anZ;
-float angle1, angle2;
+float angle1, angle2, angleZ;
 
 int sum_angle1,sum_angle2,sum_angleZ;
 
@@ -23,9 +23,9 @@ int joy_x,joy_y;
 int servo_var = SERVOMID;
 int serialcount;
 bool x_flag, y_flag;
-bool movetrigger = false;
+bool movetrigger = false,  Ztrigger = false;;
 
-int pos3d[3]= {200,100,100};
+int pos3d[3];
 int count;
 
 
@@ -52,28 +52,20 @@ void setup() {
 void loop() {
   cur_millis = millis();
   if(Serial.available()){
-//    movetrigger = false;
-//    pos3d[serialcount] = Serial.parseInt();
-//    serialcount++;
-//    if(serialcount == 3){
-//      Serial.println(pos3d[0]);
-//      Serial.println(pos3d[1]);
-//      Serial.println(pos3d[2]);
-//      serialcount = 0;
-//      movetrigger = true;
-//      
-//    }
-    movetrigger=false;
-    switch(Serial.read())
-    {
-      case 'a' : pos3d[0]+=2; movetrigger = true; break;
-      case 'd' : pos3d[0]-=2; movetrigger = true;break;
-      case 'w' : pos3d[1]+=2; movetrigger = true;break;
-      case 's' : pos3d[1]-=2; movetrigger = true;break;
-      case 'c' : pos3d[2]+=2; movetrigger = true;break;
-      case 'v' : pos3d[2]-=2; movetrigger = true;break;
+    movetrigger = false;
+    pos3d[serialcount] = Serial.parseInt();
+    serialcount++;
+    if(serialcount == 3){
+      Serial.println(pos3d[0]);
+      Serial.println(pos3d[1]);
+      Serial.println(pos3d[2]);
+      serialcount = 0;
+      movetrigger = true;
+      Ztrigger = true;
+      x = width/2;
+      y = height/2;
+      
     }
-   
   }
 
 
@@ -84,9 +76,11 @@ void loop() {
     float dx = (pos3d[0] - x);
     float dy = (pos3d[1] - y);
     float dz = pos3d[2];
-   
-     
-    float angleZ = atan2(dz, abs(dx));
+    if(Ztrigger) {
+      dx2 = dx;
+      angleZ = atan2(dz, abs(dx2));
+      Ztrigger = false;
+    }
     dx = (dx/cos(angleZ));
 
     float angle1 = atan2(dy, dx);

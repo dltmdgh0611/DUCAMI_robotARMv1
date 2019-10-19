@@ -23,7 +23,7 @@ void setup() {
   //port = new Serial(this, Serial.list()[0], 115200);
   printArray(Serial.list());
   x = width/2;
-  y = height/2;
+  y = height/2-50;
   x2 = x;
   y2 = y;
   
@@ -119,8 +119,8 @@ void draw() {
     if(an1>90) an1=abs(360-an1);
     an1=an1+(90-an2);
     println(an1 + " " + an2);
-    
-    line(0,height,width,height);
+    println(mouseX + " " + mouseY);
+    line(0,height/2,width,height/2);
     segment(x, y, angle1, segLength1); 
     segment(x2, y2, angle2, segLength2); 
   
