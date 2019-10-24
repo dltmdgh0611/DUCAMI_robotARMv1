@@ -120,7 +120,7 @@ void loop() {
           discounter[_X]++;
           Serial.println("XF");
         }
-        else ;
+        else Posflag = true;;
       }
       //dy가 더 클 경우( 기울기 > 1) x의 조건이 만족하면 y를 1증가시킨다
       else {
@@ -146,7 +146,7 @@ void loop() {
           discounter[_Y]++;
           Serial.println("YF");
         }
-        else ;
+        else Posflag = true;;
       }
 
 
