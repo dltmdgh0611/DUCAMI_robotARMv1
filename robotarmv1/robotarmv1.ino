@@ -91,7 +91,7 @@ void loop() {
   }
 
 
-  if (cur_millis - per_millis > 100)
+  if (cur_millis - per_millis > 20)
   {
     per_millis = cur_millis;
     if (movetrigger) {
@@ -167,12 +167,7 @@ void loop() {
         else Posflag = true;
       }
 
-      else {
-        Serial.print("PREVerr_1 : ");
-        Serial.println(err_1);
-        Serial.print("PREVerr_2 : ");
-        Serial.println(err_2);
-        
+      else { 
         if(errsetflag){
           err_1 = distance2[_Y] - n;
           err_2 = distance2[_X] - n;
@@ -183,14 +178,10 @@ void loop() {
             if (err_1 > 0) {
                 moving[_Y] += addY;
                 err_1 -= distance2[_Z];
-                Serial.print("err_1 : ");
-                Serial.println(err_1);
             }
             if (err_2 > 0) {
                 moving[_X] += addX;
                 err_2 -= distance2[_Z];
-                Serial.print("err_2 : ");
-                Serial.println(err_2);
             }
             err_1 += distance2[_Y];
             err_2 += distance2[_X];
@@ -216,7 +207,11 @@ void loop() {
       float dx = (moving[_X] - x);
       float dy = (moving[_Y] - y);
       dz = moving[_Z];
-      angleZ = atan2(dz, abs(dx));
+      Serial.println("----------------------");
+      Serial.println(dz);
+      Serial.println(abs(moving[_X] - 320));
+      angleZ = atan2(dz, abs(moving[_X] - 320));
+      Serial.println("----------------------");
       float angle1 = atan2(dy, dx);
       float tx = (moving[_X] - cos(angle1) * segLength1);
       float ty = (moving[_Y] - sin(angle1) * segLength1);
@@ -230,18 +225,19 @@ void loop() {
       if (an1 > 90) an1 = abs(360 - an1);
       an1 = an1 + (90 - an2);
       anZ = (int)(angleZ * (180 / PI));
-      an1 = an1 / 180 * 440;
-      an2 = an2 / 180 * 440;
-      anZ = anZ / 180 * 440;
-      
-      sum_angle1 = (int)an1;
-      sum_angle2 = (int)an2;
-      sum_angleZ = (int)anZ;
       Serial.println("----------------------");
       Serial.println(an1);
       Serial.println(an2);
       Serial.println(anZ);
       Serial.println("----------------------");
+      an1 = an1 / 180 * 440;
+      an2 = an2 / 180 * 440;
+      anZ = anZ / 180 * 440;
+
+      sum_angle1 = (int)an1;
+      sum_angle2 = (int)an2;
+      sum_angleZ = (int)anZ;
+
     }
 
 
