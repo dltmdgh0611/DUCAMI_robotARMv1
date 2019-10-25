@@ -74,9 +74,24 @@ void loop() {
       }
       err_1 = 0;
       err_2 = 0;
+      Serial.print("abs() : ");
+      Serial.println(abs(pos3d[_X] - 320));
+      Serial.print("z() : ");
+      Serial.println(pos3d[_Z]);
+      Serial.print("atan2() : ");
+      Serial.println(atan2(pos3d[_Z], abs(pos3d[_X] - 320)));
+      Serial.print("cos() : ");
+      Serial.println(cos(atan2(pos3d[_Z], abs(pos3d[_X] - 320))));
+      Serial.print("posx : ");
+      Serial.println(pos3d[_X] * cos(atan2(pos3d[_Z], abs(pos3d[_X] - 320))));
+      
+
       distance[_X] = pos3d[_X] - prev3d[_X];
       distance[_Y] = pos3d[_Y] - prev3d[_Y];
       distance[_Z] = pos3d[_Z] - prev3d[_Z];
+      distance[_X] =  distance[_X] * cos(atan2(pos3d[_Z], abs(pos3d[_X] - 320)));
+       Serial.print("dis : ");
+      Serial.println(distance[_X] * cos(atan2(pos3d[_Z], abs(pos3d[_X] - 320))));
       addX = (distance[_X] < 0) ? -1 : 1;
       l = abs(distance[_X]);
       addY = (distance[_Y] < 0) ? -1 : 1;
